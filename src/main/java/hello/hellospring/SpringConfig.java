@@ -1,5 +1,6 @@
 package hello.hellospring;
 
+import hello.hellospring.aop.TimeTraceAop;
 import hello.hellospring.repository.*;
 import hello.hellospring.service.MemberService;
 import jakarta.persistence.EntityManager;
@@ -18,7 +19,7 @@ public class SpringConfig {
     private DataSource dataSource;
     private final MemberRepository memberRepository; // Spring Jpa 가 Spring jpa 구현체를 자동으로 주입한다.
     @Autowired
-    public SpringConfig(DataSource dataSource, EntityManager em , MemberRepository memberRepository) {
+    public SpringConfig(DataSource dataSource, EntityManager em , MemberRepository memberRepository ) {
         // this.dataSource = dataSource;
         // this.em = em;
         this.memberRepository = memberRepository;
@@ -36,4 +37,9 @@ public class SpringConfig {
         // return new JdbcTemplateMemberRepository(dataSource);
         return new JpaMemberRepository(em);
     }
+    @Bean
+    public TimeTraceAop timeTraceAop(){
+        return new TimeTraceAop();
+    }
+
 }
